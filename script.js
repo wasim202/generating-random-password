@@ -117,32 +117,41 @@ function generatePassword() {
   var maxpass = 128;
 
   //test the user input
-  while (passLength >= minpass && passLength <= maxpass) {
-    var upperCase = confirm("Do you want upper case?");
-    var loweCase = confirm("Do you want lower case?");
-    var specialChar = confirm("Do you want special character?");
-    var numeric = confirm("Do you want numeric?");
+  if (passLength < minpass || passLength > maxpass) {
+    alert("you should choose between 8 - 128");
+    return;
+  }
 
-    //concat genpass array with upperArray if the user chooses upperCase prompt
-    if (upperCase) {
-      genpass = genpass.concat(upperArray);
-    }
+  var upperCase = confirm("Do you want upper case?");
+  var loweCase = confirm("Do you want lower case?");
+  var specialChar = confirm("Do you want special character?");
+  var numeric = confirm("Do you want numeric?");
 
-    //concat genpass array with lowerArray if the user chooses lowerCase prompt
-    if (loweCase) {
-      genpass = genpass.concat(lowerArray);
-    }
+  //concat genpass array with upperArray if the user chooses upperCase prompt
+  if (upperCase) {
+    genpass = genpass.concat(upperArray);
+  }
 
-    //concat genpass array with specialArray if the user chooses specialCase prompt
-    if (specialChar) {
-      genpass = genpass.concat(specialArray);
-    }
+  //concat genpass array with lowerArray if the user chooses lowerCase prompt
+  if (loweCase) {
+    genpass = genpass.concat(lowerArray);
+  }
 
-    //concat genpass array with numaricArray if the user chooses numeric prompt
-    if (numeric) {
-      genpass = genpass.concat(numericArray);
-    }
+  //concat genpass array with specialArray if the user chooses specialCase prompt
+  if (specialChar) {
+    genpass = genpass.concat(specialArray);
+  }
 
+  //concat genpass array with numaricArray if the user chooses numeric prompt
+  if (numeric) {
+    genpass = genpass.concat(numericArray);
+  }
+
+  if (!upperCase || !loweCase || !specialChar || !numeric) {
+    //if the length of the user input doesnt fit the criteria an alerts pops up and start again
+    alert("You have to choose at least one option");
+    generatePassword();
+  } else {
     //denerate random password and push it to finalpass array
     for (var i = 0; i <= passLength; i++) {
       finalpass.push(genpass[Math.floor(Math.random() * genpass.length)]);
@@ -151,8 +160,4 @@ function generatePassword() {
     //return final array as a string using join method
     return finalpass.join("");
   }
-
-  //if the length of the user input doesnt fit the criteria an alerts pops up and start again
-  alert("You have to choose at least one option");
-  generatePassword();
 }
