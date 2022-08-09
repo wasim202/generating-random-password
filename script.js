@@ -153,7 +153,7 @@ function generatePassword() {
     generatePassword();
   } else {
     //denerate random password and push it to finalpass array
-    for (var i = 0; i <= passLength; i++) {
+    for (var i = 0; i < passLength; i++) {
       finalpass.push(genpass[Math.floor(Math.random() * genpass.length)]);
     }
 
